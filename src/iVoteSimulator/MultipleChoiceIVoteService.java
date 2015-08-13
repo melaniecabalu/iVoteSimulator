@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class MultipleChoiceIVoteService extends IVoteService implements Service {
-	private Hashtable<String, Integer> statistics;
+	private Map<String, Integer> statistics;
 	private Map<String, String> submissions;
 	private Set<String> studentIds;
 

@@ -26,5 +26,4 @@ public class MultipleChoiceQuestion implements Questions{
 	public String getQuestion(){
 		return question;
 	}
-	
 }

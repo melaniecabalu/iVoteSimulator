@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class SingleChoiceIVoteService extends IVoteService implements Service {
-	private Hashtable<String, Integer> statistics;
+	private Map<String, Integer> statistics;
 	private Map<String, String> submissions;
 	private Set<String> studentIds;
 
@@ -27,12 +27,11 @@ public class SingleChoiceIVoteService extends IVoteService implements Service {
 		System.out.println("\nQuestion: " + q.getQuestion());
 		printHeader();
 		
-		//Go through all the submissions
+		//Go through each submission
 		for(String id: studentIds){			
 
 			//compare the student's submission to each candidate answer
 			for (int i = 0; i <= q.getNumberofAnswers(); i++){
-				//if submission matches a candidate answer
 				if (submissions.get(id).compareTo(q.getAnswers().get(i)) == 0){
 					//increment appropriate statistic value
 					this.setCount(statistics.get(q.getAnswers().get(i))+1);;
