@@ -29,13 +29,9 @@ public class MultipleChoiceIVoteService extends IVoteService implements Service 
 
 		System.out.println("\nQuestion: " + q.getQuestion());
 		printHeader();
-		
-		//REMOVE LATER - FOR TESTING
-		//System.out.println(submissions.size());
 	
 		//Go through all the submissions
 		for(String id: studentIds){				
-			//System.out.println("random submission: " + submissions.toString());
 
 			//compare the student's submission to each candidate answer
 			for (int i = 0; i <= q.getNumberofAnswers(); i++){
@@ -52,14 +48,10 @@ public class MultipleChoiceIVoteService extends IVoteService implements Service 
 					}
 					
 					startPos++; //increment starting position
-					endPos++; //increment ending position
+					endPos++; 	//increment ending position
 				}
 			}
 		}
-		
-		//Print the statistics
-		//REMOVE LATER - FOR TESTING
-		//System.out.println(statistics.toString());
 		
 		for (int i = 0; i <= q.getNumberofAnswers(); i++){
 			System.out.println(q.getAnswers().get(i) + ": " + statistics.get(q.getAnswers().get(i)));

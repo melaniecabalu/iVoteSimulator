@@ -23,13 +23,9 @@ public class SingleChoiceIVoteService extends IVoteService implements Service {
 		submissions.put(s.getId(), s.getAnswer());
 	}
 	
-	//for single question
 	public void displayStatistics(Questions q){
 		System.out.println("\nQuestion: " + q.getQuestion());
 		printHeader();
-
-		//REMOVE LATER - FOR TESTING
-		System.out.println(submissions.size());
 		
 		//Go through all the submissions
 		for(String id: studentIds){			
@@ -45,11 +41,7 @@ public class SingleChoiceIVoteService extends IVoteService implements Service {
 				}
 			}
 		}
-		
-		//Print the statistics
-		//REMOVE LATER - FOR TESTING
-		//System.out.println(statistics.toString());
-		
+
 		for (int i = 0; i <= q.getNumberofAnswers(); i++){
 			System.out.println(q.getAnswers().get(i) + ": " + statistics.get(q.getAnswers().get(i)));
 		}

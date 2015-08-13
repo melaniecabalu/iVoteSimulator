@@ -10,8 +10,7 @@ public class SimulationDriver {
 		String choices;
 		
 		//Single Question with no resubmissions
-		//Create question type
-		Questions q1 = new SingleChoiceQuestion("Hey?");
+		Questions q1 = new SingleChoiceQuestion("Hey?");			
 		
 		//Configure answers
 		q1.addAnswer("A");
@@ -20,8 +19,8 @@ public class SimulationDriver {
 		q1.addAnswer("D");
 		q1.addAnswer("E");
 
-		//Configure question for iVoteService
-		Service service1 = new SingleChoiceIVoteService(q1);
+		//Configure question for iVote Service
+		Service service1 = new SingleChoiceIVoteService(q1);		
 		
 		//Randomly generate a number students and the answers
 	    int randomNum = rand.nextInt(51);
@@ -40,20 +39,15 @@ public class SimulationDriver {
 	    	students[i].setAnswer(Character.toString(choices.charAt(randomAnswer)));
 	    }
 	    
-	    //Submit all the students' answers to iVote Service
+	  //Submit all the students' answers to iVote Service
 	    for (int i = 0; i < randomNum; i++){
-		   service1.submitAnswer(students[i]);
+		   service1.submitAnswer(students[i]);	    				
 	    }
 	    
-	    //REMOVE LATER - FOR TESTING
-	    //service1.printTable();
-	    
-	    //Display statistics for q1
 	    service1.displayStatistics(q1);
 	    
-		/////////Single Question with random number of resubmissions
-		//Create question type
-	    Questions q2 = new SingleChoiceQuestion("What's up?");
+		//Single Question with random number of resubmissions
+	    Questions q2 = new SingleChoiceQuestion("What's up?");		
 		
 		//Configure answers
 		q2.addAnswer("1");
@@ -61,25 +55,24 @@ public class SimulationDriver {
 		q2.addAnswer("3");
 		q2.addAnswer("4");
 		q2.addAnswer("5");
-
-		//Configure question for iVoteService
-		Service service2 = new SingleChoiceIVoteService(q2);
 		
+		//Configure question for iVoteService
+		Service service2 = new SingleChoiceIVoteService(q2);		
+
 		//Randomly generate a number students
-	    randomNum = rand.nextInt(51);
-	    
+	    randomNum = rand.nextInt(51);								
+
 	    //Randomly generate how many students will resubmit an answer
 		Student[] students2 = new Student[randomNum];
 	    int numOfResubmissions = rand.nextInt(students2.length);
-	    System.out.println("\n\nnumber of resubmissions = " + numOfResubmissions);
 		
-		//Randomly generate answers
+		//Randomly generate IDs
 	    for (int i = 0; i < randomNum; i++){
 	    	String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 	    	students2[i] = new Student(uuid);
 	    }
 	    
-	    //Students choose random answer, some make multiple submissions(SINGLE CHOICE)
+	    //Students choose random answer, some make multiple submissions(SINGLE CHOICE TYPE ANSWER)
 	    choices = "12345";
 	    int randomAnswer = rand.nextInt(choices.length());
 
@@ -104,13 +97,8 @@ public class SimulationDriver {
 		    service2.submitAnswer(students2[i]);
 	    }
 	    
-	    //REMOVE LATER - FOR TESTING
-	    //service2.printTable();
-	    
-	    //Display statistics for q2
 	    service2.displayStatistics(q2);
 
-	    //Multiple type question with no resubmissions
 	    //Create question type
 	    Questions q3 = new MultipleChoiceQuestion("Is this a question?");
 	    
@@ -124,8 +112,7 @@ public class SimulationDriver {
 		//Configure question for iVote Service
 		Service service3 = new MultipleChoiceIVoteService(q3);
 		
-		//Randomly generate a number students
-	    randomNum = rand.nextInt(51);
+		//Create 10 students
 		Student[] students3 = new Student[10];
 		
 		choices = "ABCDE";
@@ -136,6 +123,7 @@ public class SimulationDriver {
 	    	students3[i] = new Student(uuid);
 	    }
 	    
+	    //Set answers for students with NO resubmissions
 	    students3[0].setAnswer("ACD");
 	    students3[1].setAnswer("BCE");
 	    students3[2].setAnswer("E");
@@ -153,27 +141,47 @@ public class SimulationDriver {
 	    
 	    service3.displayStatistics(q3);
 
-	    /*
-	    for(int i = 0; i < students3.length; i++){
-		    randomAnswerLength= rand.nextInt(choices.length()) + 1;
-		    for (int j = 0; j < randomAnswerLength; j++){
-		    	
-		    }
-	    }*/
-	    
-	    
+	    //Multiple type question with resubmissions
+	    Questions q4 = new MultipleChoiceQuestion("What?");
+	    q4.addAnswer("1");
+	    q4.addAnswer("2");
+	    q4.addAnswer("3");
+	    q4.addAnswer("4");
+	    q4.addAnswer("5");
+	    q4.addAnswer("6");
 
-		/*
-		Student Melanie = new Student("009129484");
-		Student Michelle = new Student("002145");
-		Melanie.setAnswer("123");
-		Melanie.setAnswer("122");
-		Michelle.setAnswer("125");
+		Service service4 = new MultipleChoiceIVoteService(q4);
 
-		service3.submitAnswer(Melanie);
-		//service3.submitAnswer(Michelle);
-		service3.displayStatistics(q3);
-		*/
+		//Create 10 students
+		Student[] students4 = new Student[10];
+		
+		choices = "123456";
+		
+		//Randomly generate student IDs
+	    for (int i = 0; i < students4.length; i++){
+	    	String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+	    	students4[i] = new Student(uuid);
+	    }
+	    
+	    //Set answers for students with resubmissions
+	    students4[0].setAnswer("12");
+	    students4[1].setAnswer("34"); 	//ignore - multiple submission
+	    students4[1].setAnswer("56"); 	//multiple submission
+	    students4[2].setAnswer("236");
+	    students4[3].setAnswer("156");
+	    students4[4].setAnswer("34"); 	//ignore - multiple submission
+	    students4[4].setAnswer("156");  //multiple submission
+	    students4[5].setAnswer("4");
+	    students4[6].setAnswer("25");
+	    students4[7].setAnswer("136");	//ignore - multiple submission
+	    students4[7].setAnswer("2456"); //multiple submission
+	    students4[8].setAnswer("15");
+	    students4[9].setAnswer("12345");
+	    
+	    for (int i = 0; i < 10; i++){
+	    	service4.submitAnswer(students4[i]);
+	    }
+	    
+	    service4.displayStatistics(q4);
 	}
-
 }
