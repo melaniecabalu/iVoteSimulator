@@ -14,11 +14,13 @@ public class SingleChoiceIVoteService extends IVoteService implements Service {
 		statistics = new Hashtable<String, Integer>();
 		studentIds = submissions.keySet();
 
+		//Stores candidate answers in Statistics map
 		for (int i = 0; i <= q.getNumberofAnswers(); i++){
 			statistics.put(q.getAnswers().get(i), 0);
 		}
 	}
 	
+	//Stores a Student's answer into Submission map
 	public void submitAnswer(Student s){
 		submissions.put(s.getId(), s.getAnswer());
 	}
@@ -27,13 +29,14 @@ public class SingleChoiceIVoteService extends IVoteService implements Service {
 		System.out.println("\nQuestion: " + q.getQuestion());
 		printHeader();
 		
-		//Go through each submission
+		//Go through each student submission
 		for(String id: studentIds){			
 
-			//compare the student's submission to each candidate answer
-			for (int i = 0; i <= q.getNumberofAnswers(); i++){
+			//Compare the student's submission to each candidate answer
+			for (int i = 0; i <= q.getNumberofAnswers(); i++){ 
+				
 				if (submissions.get(id).compareTo(q.getAnswers().get(i)) == 0){
-					//increment appropriate statistic value
+					//increment appropriate statistic value and store back in Submissions map
 					this.setCount(statistics.get(q.getAnswers().get(i))+1);;
 					statistics.put(q.getAnswers().get(i), this.getCount());
 					this.setCount(0);
@@ -41,6 +44,7 @@ public class SingleChoiceIVoteService extends IVoteService implements Service {
 			}
 		}
 
+		//Print each candidate answer and statistics
 		for (int i = 0; i <= q.getNumberofAnswers(); i++){
 			System.out.println(q.getAnswers().get(i) + ": " + statistics.get(q.getAnswers().get(i)));
 		}

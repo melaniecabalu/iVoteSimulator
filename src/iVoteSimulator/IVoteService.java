@@ -14,10 +14,6 @@ public class IVoteService  {
 		count = 0;
 	}
 	
-	public void printTable(){
-		System.out.println(submissions.toString());
-	}
-	
 	public Map<String, String> getSubmissions(){
 		return submissions;
 	}

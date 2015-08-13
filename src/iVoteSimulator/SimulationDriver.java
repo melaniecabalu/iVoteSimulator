@@ -26,12 +26,13 @@ public class SimulationDriver {
 	    int randomNum = rand.nextInt(51);
 		Student[] students = new Student[randomNum];
 
+		//Generate random student IDs
 	    for (int i = 0; i < randomNum; i++){
 	    	String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 	    	students[i] = new Student(uuid);
 	    }
 	    
-	    //Students choose random answer (SINGLE CHOICE)
+	    //Students choose random single choice answer
 	    for (int i = 0; i < randomNum; i++){
 		    choices = "ABCDE";
 		    int randomAnswer = rand.nextInt(choices.length());
@@ -62,9 +63,9 @@ public class SimulationDriver {
 		//Randomly generate a number students
 	    randomNum = rand.nextInt(51);								
 
-	    //Randomly generate how many students will resubmit an answer
+	    //Randomly generate students and how many students will resubmit an answer
 		Student[] students2 = new Student[randomNum];
-	    int numOfResubmissions = rand.nextInt(students2.length);
+	    int numOfResubmissions = rand.nextInt(students2.length) + 1;
 		
 		//Randomly generate IDs
 	    for (int i = 0; i < randomNum; i++){
@@ -72,7 +73,7 @@ public class SimulationDriver {
 	    	students2[i] = new Student(uuid);
 	    }
 	    
-	    //Students choose random answer, some make multiple submissions(SINGLE CHOICE TYPE ANSWER)
+	    //Students choose random single choice answer; some make multiple submissions
 	    choices = "12345";
 	    int randomAnswer = rand.nextInt(choices.length());
 
@@ -83,7 +84,7 @@ public class SimulationDriver {
 	    	students2[i].setAnswer(Character.toString(choices.charAt(randomAnswer)));
 	    }
 	    
-    	//Random resubmission    	
+    	//Random students make resubmission
     	for (int j = 0; j < numOfResubmissions; j++){
         	int randomStudentIndex = rand.nextInt(students2.length);
 		    randomAnswer = rand.nextInt(choices.length());
@@ -92,14 +93,14 @@ public class SimulationDriver {
     			students2[j].setAnswer(Character.toString(choices.charAt(randomAnswer)));    		
     	}
 	    	    
-	    //Submit all the students' answers to iVote Service
+	    //Submit all students' answers to iVote Service
 	    for (int i = 0; i < randomNum; i++){
 		    service2.submitAnswer(students2[i]);
 	    }
 	    
 	    service2.displayStatistics(q2);
 
-	    //Create question type
+	    //Multiple choice question with no resubmissions
 	    Questions q3 = new MultipleChoiceQuestion("Is this a question?");
 	    
 		//Configure answers
@@ -123,7 +124,7 @@ public class SimulationDriver {
 	    	students3[i] = new Student(uuid);
 	    }
 	    
-	    //Set answers for students with NO resubmissions
+	    //Set answers for students 
 	    students3[0].setAnswer("ACD");
 	    students3[1].setAnswer("BCE");
 	    students3[2].setAnswer("E");
@@ -135,13 +136,14 @@ public class SimulationDriver {
 	    students3[8].setAnswer("ACE");
 	    students3[9].setAnswer("B");
 
+	    //Submit all students' answers to iVote Service
 	    for (int i = 0; i < 10; i++){
 	    	service3.submitAnswer(students3[i]);
 	    }
 	    
 	    service3.displayStatistics(q3);
 
-	    //Multiple type question with resubmissions
+	    //Multiple choice question with resubmissions
 	    Questions q4 = new MultipleChoiceQuestion("What?");
 	    q4.addAnswer("1");
 	    q4.addAnswer("2");
@@ -163,21 +165,22 @@ public class SimulationDriver {
 	    	students4[i] = new Student(uuid);
 	    }
 	    
-	    //Set answers for students with resubmissions
+	    //Set answers for students
 	    students4[0].setAnswer("12");
-	    students4[1].setAnswer("34"); 	//ignore - multiple submission
-	    students4[1].setAnswer("56"); 	//multiple submission
+	    students4[1].setAnswer("34"); 	//multiple submission - should be ignored
+	    students4[1].setAnswer("56"); 	//multiple submission - should be counted
 	    students4[2].setAnswer("236");
 	    students4[3].setAnswer("156");
-	    students4[4].setAnswer("34"); 	//ignore - multiple submission
-	    students4[4].setAnswer("156");  //multiple submission
+	    students4[4].setAnswer("34"); 	//multiple submission - should be ignored
+	    students4[4].setAnswer("156");  //multiple submission - should be counted
 	    students4[5].setAnswer("4");
 	    students4[6].setAnswer("25");
-	    students4[7].setAnswer("136");	//ignore - multiple submission
-	    students4[7].setAnswer("2456"); //multiple submission
+	    students4[7].setAnswer("136");	//multiple submission - should be ignored
+	    students4[7].setAnswer("2456"); //multiple submission - should be counted
 	    students4[8].setAnswer("15");
 	    students4[9].setAnswer("12345");
 	    
+	    //Submit all students' answers to iVote Service
 	    for (int i = 0; i < 10; i++){
 	    	service4.submitAnswer(students4[i]);
 	    }
